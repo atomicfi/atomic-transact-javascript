@@ -1,6 +1,6 @@
 {
   "name": "@atomicfi/javascript-sdk",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Atomic Transact Javascript SDK.",
   "main": "index.js",
   "scripts": {
