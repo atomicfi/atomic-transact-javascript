@@ -1,4 +1,4 @@
-# @atomicfi/javascript-sdk
+# @atomicfi/transact-javascript
 
 Javascript SDK for Atomic Transact.
 
