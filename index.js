@@ -34,6 +34,7 @@ exports.Atomic = {
   transact: ({
     config = {},
     environment = exports.Environment.PRODUCTION,
+    environmentOverride,
     onInteraction = () => {},
     onDataRequest = () => {},
     onFinish = () => {},
@@ -42,7 +43,9 @@ exports.Atomic = {
     document.body.style.overflow = 'hidden'
     let iframeElement = document.createElement('iframe')
 
-    iframeElement.src = `${environment}/initialize/${btoa(
+    iframeElement.src = `${
+      environmentOverride || environment
+    }/initialize/${btoa(
       JSON.stringify({
         inSdk: true,
         ...config
