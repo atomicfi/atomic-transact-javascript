@@ -32,6 +32,7 @@ exports.Atomic = {
    * @param options.onClose - Callback for when Transact is closed
    */
   transact: ({
+    container = undefined,
     config = {},
     environment = exports.Environment.PRODUCTION,
     environmentOverride,
@@ -40,7 +41,10 @@ exports.Atomic = {
     onFinish = () => {},
     onClose = () => {}
   } = {}) => {
-    document.body.style.overflow = 'hidden'
+    if (!container) {
+      document.body.style.overflow = 'hidden'
+    }
+
     let iframeElement = document.createElement('iframe')
 
     iframeElement.src = `${
@@ -52,31 +56,50 @@ exports.Atomic = {
       })
     )}`
 
-    const styles = [
+    const baseStyles = [
       { width: '100%' },
       { height: '100%' },
-      { position: 'fixed' },
-      { top: '0' },
-      { left: '0' },
-      { right: '0' },
-      { bottom: '0' },
-      { 'z-index': '9999999999' },
+      { 'z-index': '888888888' },
       { 'border-width': '0' },
       { 'overflow-x': 'hidden' },
       { 'overflow-y': 'auto' }
     ]
 
+    const modalStyles = [
+      { position: 'fixed' },
+      { top: '0' },
+      { left: '0' },
+      { right: '0' },
+      { bottom: '0' },
+    ]
+
+    const styles = [...baseStyles, ...(container ? [] : modalStyles)]
+
     iframeElement.id = 'atomic-transact-iframe'
     iframeElement.style.cssText = styles
       .map((style) =>
         Object.entries(style)
+        
           .map(([key, value]) => `${key}: ${value}; `)
           .join('')
       )
       .join('')
       .trim()
 
-    document.body.appendChild(iframeElement)
+if (container) {
+  const containerElement = document.querySelector(container)
+
+  if (containerElement) {
+    containerElement.appendChild(iframeElement)
+  }
+  else {
+    throw new Error(`No container found for "${container}"`) 
+  }
+}
+
+  else {
+      document.body.appendChild(iframeElement)
+  }
 
     iframeEventListener = _handleIFrameEvent({
       onInteraction,
