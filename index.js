@@ -86,6 +86,10 @@ exports.Atomic = {
       iframeElement
     })
     window.addEventListener('message', iframeEventListener)
+
+    return {
+      close: () => _removeTransact({ iframeElement })
+    }
   }
 }
 
