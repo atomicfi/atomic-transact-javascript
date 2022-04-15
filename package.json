@@ -1,6 +1,6 @@
 {
-  "name": "@atomicfi/transact-javascript-inline",
-  "version": "1.0.1",
+  "version": "1.0.3",
+  "name": "@atomicfi/transact-javascript",
   "description": "Atomic Transact Javascript SDK.",
   "main": "index.js",
   "scripts": {

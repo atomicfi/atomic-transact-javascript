@@ -109,6 +109,10 @@ if (container) {
       iframeElement
     })
     window.addEventListener('message', iframeEventListener)
+
+    return {
+      close: () => _removeTransact({ iframeElement })
+    }
   }
 }
 
