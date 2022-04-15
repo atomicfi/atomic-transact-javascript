@@ -150,6 +150,7 @@ function _handleIFrameEvent({
 }
 
 function _removeTransact({ iframeElement }) {
+  if (container) return
   window.removeEventListener('message', iframeEventListener)
   document.body.style.removeProperty('overflow')
   document.body.removeChild(iframeElement)
