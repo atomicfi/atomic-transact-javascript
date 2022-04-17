@@ -79,7 +79,6 @@ exports.Atomic = {
     iframeElement.style.cssText = styles
       .map((style) =>
         Object.entries(style)
-        
           .map(([key, value]) => `${key}: ${value}; `)
           .join('')
       )
