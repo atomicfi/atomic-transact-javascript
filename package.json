@@ -1,6 +1,6 @@
 {
+  "version": "1.0.4",
   "name": "@atomicfi/transact-javascript",
-  "version": "1.0.2",
   "description": "Atomic Transact Javascript SDK.",
   "main": "index.js",
   "scripts": {
@@ -16,5 +16,13 @@
   "license": "ISC",
   "devDependencies": {
     "prettier": "^2.4.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atomicfi/atomic-transact-javascript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/atomicfi/atomic-transact-javascript/issues"
+  },
+  "homepage": "https://github.com/atomicfi/atomic-transact-javascript#readme"
 }
