@@ -54,7 +54,7 @@ exports.Atomic = {
         inSdk: true,
         platform: {
           name: 'browser',
-          version: '1.0.3'
+          version: '1.0.5'
         },
         ...config
       })
