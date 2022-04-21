@@ -52,6 +52,10 @@ exports.Atomic = {
     }/initialize/${btoa(
       JSON.stringify({
         inSdk: true,
+        platform: {
+          name: 'browser',
+          version: '1.0.3'
+        },
         ...config
       })
     )}`
