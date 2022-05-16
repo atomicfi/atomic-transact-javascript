@@ -11,36 +11,31 @@ exports.Product = {
   WITHHOLD: 'withhold'
 }
 
-/**
- * Atomic environment for Transact
- * @type {{SANDBOX: string, PRODUCTION: string}}
- */
-exports.Environment = {
-  PRODUCTION: 'https://transact.atomicfi.com',
-  SANDBOX: 'https://transact-sandbox.atomicfi.com'
-}
-
 exports.Atomic = {
   /**
    * Launch the Transact experience
    * @param options - Options for launching Transact
    * @param options.config - Atomic config object to customize Transact - https://docs.atomicfi.com/reference/transact-sdk#sdk-parameters
-   * @param options.environment - Atomic environment for Transact. Can be either Production or Sandbox.
    * @param options.onInteraction - Callback for when a user interacts with Transact
    * @param options.onDataRequest - Callback for when Transact requests additional data
    * @param options.onFinish - Callback for when Transact is finished
    * @param options.onClose - Callback for when Transact is closed
    */
   transact: ({
+    config,
     container = undefined,
-    config = {},
-    environment = exports.Environment.PRODUCTION,
-    environmentOverride,
-    onInteraction = () => {},
-    onDataRequest = () => {},
-    onFinish = () => {},
-    onClose = () => {}
+    environmentOverride = undefined,
+    onInteraction = undefined,
+    onDataRequest = undefined,
+    onFinish = undefined,
+    onClose = undefined
   } = {}) => {
+    config = config || {}
+    onInteraction = onInteraction || function () {}
+    onDataRequest = onDataRequest || function () {}
+    onFinish = onFinish || function () {}
+    onClose = onClose || function () {}
+
     if (!container) {
       document.body.style.overflow = 'hidden'
     }
@@ -48,7 +43,7 @@ exports.Atomic = {
     let iframeElement = document.createElement('iframe')
 
     iframeElement.src = `${
-      environmentOverride || environment
+      environmentOverride || 'https://transact.atomicfi.com'
     }/initialize/${btoa(
       JSON.stringify({
         inSdk: true,
@@ -74,7 +69,7 @@ exports.Atomic = {
       { top: '0' },
       { left: '0' },
       { right: '0' },
-      { bottom: '0' },
+      { bottom: '0' }
     ]
 
     const styles = [...baseStyles, ...(container ? [] : modalStyles)]
@@ -89,20 +84,17 @@ exports.Atomic = {
       .join('')
       .trim()
 
-if (container) {
-  const containerElement = document.querySelector(container)
+    if (container) {
+      const containerElement = document.querySelector(container)
 
-  if (containerElement) {
-    containerElement.appendChild(iframeElement)
-  }
-  else {
-    throw new Error(`No container found for "${container}"`) 
-  }
-}
-
-  else {
+      if (containerElement) {
+        containerElement.appendChild(iframeElement)
+      } else {
+        throw new Error(`No container found for "${container}"`)
+      }
+    } else {
       document.body.appendChild(iframeElement)
-  }
+    }
 
     iframeEventListener = _handleIFrameEvent({
       onInteraction,

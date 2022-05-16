@@ -1,10 +1,11 @@
 {
-  "version": "1.0.5",
+  "version": "1.0.11",
   "name": "@atomicfi/transact-javascript",
   "description": "Atomic Transact Javascript SDK.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish-it": "npx tsc && npm publish --access public"
   },
   "keywords": [
     "Atomic",
@@ -15,7 +16,8 @@
   "author": "sean@atomicfi.com",
   "license": "ISC",
   "devDependencies": {
-    "prettier": "^2.4.1"
+    "prettier": "^2.4.1",
+    "typescript": "^4.6.4"
   },
   "repository": {
     "type": "git",
