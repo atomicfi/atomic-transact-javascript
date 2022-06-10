@@ -1,17 +1,13 @@
-let iframeEventListener
+let atomicIframeEventListener
 
-/**
- * Atomic Product configuration
- * @type {{IDENTIFY: string, WITHHOLD: string, VERIFY: string, DEPOSIT: string}}
- */
-exports.Product = {
+let atomicProduct = {
   DEPOSIT: 'deposit',
   VERIFY: 'verify',
   IDENTIFY: 'identify',
   WITHHOLD: 'withhold'
 }
 
-exports.Atomic = {
+let atomicSDK = {
   /**
    * Launch the Transact experience
    * @param options - Options for launching Transact
@@ -96,14 +92,14 @@ exports.Atomic = {
       document.body.appendChild(iframeElement)
     }
 
-    iframeEventListener = _handleIFrameEvent({
+    atomicIframeEventListener = _handleIFrameEvent({
       onInteraction,
       onDataRequest,
       onFinish,
       onClose,
       iframeElement
     })
-    window.addEventListener('message', iframeEventListener)
+    window.addEventListener('message', atomicIframeEventListener)
 
     return {
       close: () => _removeTransact({ iframeElement })
@@ -145,8 +141,16 @@ function _handleIFrameEvent({
 }
 
 function _removeTransact({ iframeElement }) {
-  window.removeEventListener('message', iframeEventListener)
+  window.removeEventListener('message', atomicIframeEventListener)
   if (iframeElement.parentNode !== document.body) return
   document.body.style.removeProperty('overflow')
   document.body.removeChild(iframeElement)
+}
+
+if (typeof exports !== 'undefined') {
+  exports.Product = atomicProduct
+  exports.Atomic = atomicSDK
+} else {
+  window.Product = atomicProduct
+  window.Atomic = atomicSDK
 }
