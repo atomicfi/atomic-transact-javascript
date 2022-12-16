@@ -96,13 +96,12 @@ let atomicSDK = {
       onInteraction,
       onDataRequest,
       onFinish,
-      onClose,
-      iframeElement
+      onClose
     })
     window.addEventListener('message', atomicIframeEventListener)
 
     return {
-      close: () => _removeTransact({ iframeElement })
+      close: () => _removeTransact()
     }
   }
 }
@@ -111,19 +110,18 @@ function _handleIFrameEvent({
   onInteraction,
   onFinish,
   onClose,
-  onDataRequest,
-  iframeElement
+  onDataRequest
 }) {
   return (event) => {
     const { payload, event: eventName } = event.data
     switch (eventName) {
       case 'atomic-transact-close':
         onClose(payload)
-        _removeTransact({ iframeElement })
+        _removeTransact()
         break
       case 'atomic-transact-finish':
         onFinish(payload)
-        _removeTransact({ iframeElement })
+        _removeTransact()
         break
       case 'atomic-transact-interaction':
         onInteraction(payload)
@@ -140,7 +138,9 @@ function _handleIFrameEvent({
   }
 }
 
-function _removeTransact({ iframeElement }) {
+function _removeTransact() {
+  const iframeElement = document.querySelector('#atomic-transact-iframe')
+
   window.removeEventListener('message', atomicIframeEventListener)
   if (iframeElement.parentNode !== document.body) return
   document.body.style.removeProperty('overflow')
