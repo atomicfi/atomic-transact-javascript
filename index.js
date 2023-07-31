@@ -45,7 +45,10 @@ let atomicSDK = {
         inSdk: true,
         platform: {
           name: 'browser',
-          version: '1.0.5'
+          sdkVersion: '3.0.0',
+          systemVersion: `${navigator.platform}-${
+            navigator.vendor ?? 'unknown'
+          }`
         },
         ...config
       })
