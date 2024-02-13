@@ -37,6 +37,7 @@ let atomicSDK = {
     }
 
     let iframeElement = document.createElement('iframe')
+    iframeElement.setAttribute('allow', 'web-share')
 
     iframeElement.src = `${
       environmentOverride || 'https://transact.atomicfi.com'
