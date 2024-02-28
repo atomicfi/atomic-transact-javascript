@@ -27,10 +27,10 @@ let atomicSDK = {
     onClose = undefined
   } = {}) => {
     config = config || {}
-    onInteraction = onInteraction || function () {}
-    onDataRequest = onDataRequest || function () {}
-    onFinish = onFinish || function () {}
-    onClose = onClose || function () {}
+    onInteraction = onInteraction || function() { }
+    onDataRequest = onDataRequest || function() { }
+    onFinish = onFinish || function() { }
+    onClose = onClose || function() { }
 
     if (!container) {
       document.body.style.overflow = 'hidden'
@@ -39,21 +39,19 @@ let atomicSDK = {
     let iframeElement = document.createElement('iframe')
     iframeElement.setAttribute('allow', 'web-share')
 
-    iframeElement.src = `${
-      environmentOverride || 'https://transact.atomicfi.com'
-    }/initialize/${btoa(
-      JSON.stringify({
-        inSdk: true,
-        platform: {
-          name: 'browser',
-          sdkVersion: '3.0.0',
-          systemVersion: `${navigator.platform}-${
-            navigator.vendor ?? 'unknown'
-          }`
-        },
-        ...config
-      })
-    )}`
+    iframeElement.src = `${environmentOverride || 'https://transact.atomicfi.com'
+      }/initialize/${btoa(
+        JSON.stringify({
+          inSdk: true,
+          platform: {
+            name: 'browser',
+            sdkVersion: '3.0.2',
+            systemVersion: `${navigator.platform}-${navigator.vendor ?? 'unknown'
+              }`
+          },
+          ...config
+        })
+      )}`
 
     const baseStyles = [
       { width: '100%' },
@@ -146,7 +144,7 @@ function _removeTransact() {
   const iframeElement = document.querySelector('#atomic-transact-iframe')
 
   window.removeEventListener('message', atomicIframeEventListener)
-  if (iframeElement.parentNode !== document.body) return
+  if (iframeElement?.parentNode !== document.body) return
   document.body.style.removeProperty('overflow')
   document.body.removeChild(iframeElement)
 }
