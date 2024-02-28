@@ -46,7 +46,7 @@ let atomicSDK = {
         inSdk: true,
         platform: {
           name: 'browser',
-          sdkVersion: '3.0.0',
+          sdkVersion: '3.0.2',
           systemVersion: `${navigator.platform}-${
             navigator.vendor ?? 'unknown'
           }`
@@ -146,7 +146,7 @@ function _removeTransact() {
   const iframeElement = document.querySelector('#atomic-transact-iframe')
 
   window.removeEventListener('message', atomicIframeEventListener)
-  if (iframeElement.parentNode !== document.body) return
+  if (iframeElement?.parentNode !== document.body) return
   document.body.style.removeProperty('overflow')
   document.body.removeChild(iframeElement)
 }
