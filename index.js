@@ -32,6 +32,8 @@ let atomicSDK = {
     onFinish = onFinish || function () {}
     onClose = onClose || function () {}
 
+    const origin = environmentOverride || 'https://transact.atomicfi.com'
+
     if (!container) {
       document.body.style.overflow = 'hidden'
     }
@@ -39,9 +41,7 @@ let atomicSDK = {
     let iframeElement = document.createElement('iframe')
     iframeElement.setAttribute('allow', 'web-share')
 
-    iframeElement.src = `${
-      environmentOverride || 'https://transact.atomicfi.com'
-    }/initialize/${btoa(
+    iframeElement.src = `${origin}/initialize/${btoa(
       JSON.stringify({
         inSdk: true,
         platform: {
@@ -97,6 +97,7 @@ let atomicSDK = {
     }
 
     atomicIframeEventListener = _handleIFrameEvent({
+      origin,
       onInteraction,
       onDataRequest,
       onFinish,
@@ -111,12 +112,15 @@ let atomicSDK = {
 }
 
 function _handleIFrameEvent({
+  origin,
   onInteraction,
   onFinish,
   onClose,
   onDataRequest
 }) {
   return (event) => {
+    if (origin !== event.origin) return
+
     const { payload, event: eventName } = event.data
     switch (eventName) {
       case 'atomic-transact-close':
