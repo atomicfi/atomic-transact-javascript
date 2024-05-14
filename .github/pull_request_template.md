@@ -13,7 +13,7 @@ Please replace this with a link to your Linear task.
 # Checklist:
 
 - [ ] I have performed a self-review of my own code
-- [ ] I have assigned a team member to code review my PR from Jira
+- [ ] I have assigned a team member to code review my PR from Linear
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] I have made corresponding changes to the documentation
 - [ ] I have tested on a physical iOS device and Android device
