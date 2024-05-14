@@ -1,0 +1,47 @@
+name: publish
+
+on:
+  push:
+    branches: master
+    paths: package.json
+  workflow_dispatch:
+
+jobs:
+  npm:
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+      - name: Publish
+        run:
+          npm config set '//registry.npmjs.org/:_authToken' "${{secrets.NPM_AUTH_TOKEN}}"
+          npm publish --access public
+  tag:
+    needs: npm
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: node
+        uses: actions/setup-node@v3
+      - name: tag
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { version } = require('./package.json')
+            github.rest.git.createRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `refs/tags/${version}`,
+                sha: context.sha
+              })
