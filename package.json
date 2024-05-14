@@ -4,7 +4,7 @@
   "description": "Atomic Transact Javascript SDK.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "publish-it": "npx tsc && npm publish --access public"
   },
   "keywords": [
@@ -16,6 +16,8 @@
   "author": "sean@atomicfi.com",
   "license": "ISC",
   "devDependencies": {
+    "jest": "^29.7.0",
+    "lodash": "^4.17.21",
     "prettier": "^2.4.1",
     "typescript": "^4.6.4"
   },
