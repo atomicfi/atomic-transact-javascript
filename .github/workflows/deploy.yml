@@ -18,14 +18,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
+          registry-url: 'https://registry.npmjs.org'
           cache: npm
 
       - name: Install Dependencies
         run: npm ci
       - name: Publish
-        run:
-          npm config set '//registry.npmjs.org/:_authToken' "${{secrets.NPM_AUTH_TOKEN}}"
-          npm publish --access public
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
   tag:
     needs: npm
     runs-on: ubuntu-20.04
