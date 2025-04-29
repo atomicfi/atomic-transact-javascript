@@ -6,6 +6,14 @@ exports[`JavaScript SDK should initialize the sdk 1`] = `
     "allow",
     "web-share",
   ],
+  [
+    "title",
+    "Atomic Transact Interface",
+  ],
+  [
+    "aria-label",
+    "Atomic Transact Interface",
+  ],
 ]
 `;
 
