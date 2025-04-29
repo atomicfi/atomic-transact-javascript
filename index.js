@@ -40,6 +40,9 @@ let atomicSDK = {
 
     let iframeElement = document.createElement('iframe')
     iframeElement.setAttribute('allow', 'web-share')
+    const productType = config.product || 'Transact'
+    iframeElement.setAttribute('title', `Atomic ${productType} Interface`)
+    iframeElement.setAttribute('aria-label', `Atomic ${productType} Interface`)
 
     iframeElement.src = `${origin}/initialize/${btoa(
       JSON.stringify({
