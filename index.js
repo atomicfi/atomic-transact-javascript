@@ -40,7 +40,7 @@ let atomicSDK = {
 
     let iframeElement = document.createElement('iframe')
     iframeElement.setAttribute('allow', 'web-share')
-    const productType = config.product || 'Transact'
+    const productType = config.operation || config.product || 'Atomic'
     iframeElement.setAttribute('title', `Atomic ${productType} Interface`)
     iframeElement.setAttribute('aria-label', `Atomic ${productType} Interface`)
 
