@@ -8,11 +8,11 @@ exports[`JavaScript SDK should initialize the sdk 1`] = `
   ],
   [
     "title",
-    "Atomic Atomic Interface",
+    "Atomic Interface",
   ],
   [
     "aria-label",
-    "Atomic Atomic Interface",
+    "Atomic Interface",
   ],
 ]
 `;
