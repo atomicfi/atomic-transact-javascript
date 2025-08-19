@@ -49,7 +49,7 @@ let atomicSDK = {
         inSdk: true,
         platform: {
           name: 'browser',
-          sdkVersion: '3.0.8',
+          sdkVersion: '__VERSION__',
           systemVersion: `${navigator.platform}-${
             navigator.vendor ?? 'unknown'
           }`

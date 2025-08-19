@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "publish-it": "npx tsc && npm publish --access public"
+    "prepublishOnly": "node scripts/update-version.js && npx tsc"
   },
   "keywords": [
     "Atomic",
