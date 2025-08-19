@@ -20,7 +20,7 @@ exports[`JavaScript SDK should initialize the sdk 1`] = `
 exports[`JavaScript SDK should initialize the sdk 2`] = `
 {
   "id": "atomic-transact-iframe",
-  "src": "https://transact.atomicfi.com/initialize/eyJpblNkayI6dHJ1ZSwicGxhdGZvcm0iOnsibmFtZSI6ImJyb3dzZXIiLCJzZGtWZXJzaW9uIjoiMy4wLjQiLCJzeXN0ZW1WZXJzaW9uIjoiaW9zLW1hYyJ9LCJwdWJsaWNUb2tlbiI6IjZlOTM1NDllLTM1NzEtNGY1Ny1iMGY3LTc3YjdjYjBiNWU0OCIsInRhc2tzIjpbeyJwcm9kdWN0IjoiZGVwb3NpdCJ9XX0=",
+  "src": "https://transact.atomicfi.com/initialize/eyJpblNkayI6dHJ1ZSwicGxhdGZvcm0iOnsibmFtZSI6ImJyb3dzZXIiLCJzZGtWZXJzaW9uIjoiMy4wLjgiLCJzeXN0ZW1WZXJzaW9uIjoiaW9zLW1hYyJ9LCJwdWJsaWNUb2tlbiI6IjZlOTM1NDllLTM1NzEtNGY1Ny1iMGY3LTc3YjdjYjBiNWU0OCIsInRhc2tzIjpbeyJwcm9kdWN0IjoiZGVwb3NpdCJ9XX0=",
   "style": {
     "cssText": "width: 100%; height: 100%; z-index: 888888888; border-width: 0; overflow-x: hidden; overflow-y: auto; position: fixed; top: 0; left: 0; right: 0; bottom: 0;",
   },
