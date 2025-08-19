@@ -1,10 +1,10 @@
-export var Product: {
-    IDENTIFY: string;
-    WITHHOLD: string;
-    VERIFY: string;
-    DEPOSIT: string;
-};
-export namespace Atomic {
+declare namespace atomicProduct {
+    const DEPOSIT: string;
+    const VERIFY: string;
+    const IDENTIFY: string;
+    const WITHHOLD: string;
+}
+declare namespace atomicSDK {
     function transact({ config, container, environmentOverride, onInteraction, onDataRequest, onFinish, onClose }?: {
         config: any;
         container?: any;
@@ -17,4 +17,5 @@ export namespace Atomic {
         close: () => void;
     };
 }
+export { atomicProduct as Product, atomicSDK as Atomic };
 //# sourceMappingURL=index.d.ts.map
