@@ -4,7 +4,7 @@ exports[`JavaScript SDK should initialize the sdk 1`] = `
 [
   [
     "allow",
-    "web-share",
+    "web-share; clipboard-write;",
   ],
   [
     "title",
