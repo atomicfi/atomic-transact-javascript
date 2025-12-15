@@ -5,7 +5,7 @@ declare namespace atomicProduct {
     const WITHHOLD: string;
 }
 declare namespace atomicSDK {
-    function transact({ config, container, environmentOverride, onInteraction, onDataRequest, onFinish, onClose }?: {
+    function transact({ config, container, environmentOverride, onInteraction, onDataRequest, onFinish, onClose, onOpenUrl }?: {
         config: any;
         container?: any;
         environmentOverride?: any;
@@ -13,6 +13,7 @@ declare namespace atomicSDK {
         onDataRequest?: any;
         onFinish?: any;
         onClose?: any;
+        onOpenUrl?: any;
     }): {
         close: () => void;
     };
