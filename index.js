@@ -16,6 +16,7 @@ let atomicSDK = {
    * @param options.onDataRequest - Callback for when Transact requests additional data
    * @param options.onFinish - Callback for when Transact is finished
    * @param options.onClose - Callback for when Transact is closed
+   * @param options.onOpenUrl - Callback for when Transact opens an external URL
    */
   transact: ({
     config,
@@ -24,13 +25,15 @@ let atomicSDK = {
     onInteraction = undefined,
     onDataRequest = undefined,
     onFinish = undefined,
-    onClose = undefined
+    onClose = undefined,
+    onOpenUrl = undefined
   } = {}) => {
     config = config || {}
     onInteraction = onInteraction || function () {}
     onDataRequest = onDataRequest || function () {}
     onFinish = onFinish || function () {}
     onClose = onClose || function () {}
+    onOpenUrl = onOpenUrl || undefined
 
     const origin = environmentOverride || 'https://transact.atomicfi.com'
 
@@ -104,7 +107,8 @@ let atomicSDK = {
       onInteraction,
       onDataRequest,
       onFinish,
-      onClose
+      onClose,
+      onOpenUrl
     })
     window.addEventListener('message', atomicIframeEventListener)
 
@@ -119,7 +123,8 @@ function _handleIFrameEvent({
   onInteraction,
   onFinish,
   onClose,
-  onDataRequest
+  onDataRequest,
+  onOpenUrl
 }) {
   return (event) => {
     if (origin !== event.origin) return
@@ -141,7 +146,11 @@ function _handleIFrameEvent({
         onDataRequest(payload)
         break
       case 'atomic-transact-open-url':
-        window.open(payload.url, '_blank')
+        if (onOpenUrl && typeof onOpenUrl === 'function') {
+          onOpenUrl({url: payload.url})
+        } else {
+          window.open(payload.url, '_blank')
+        }
         break
       default:
         console.log('Unhandled postMessage Event', eventName)
