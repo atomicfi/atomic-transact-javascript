@@ -149,7 +149,10 @@ function _handleIFrameEvent({
         if (onOpenUrl && typeof onOpenUrl === 'function') {
           onOpenUrl({url: payload.url})
         } else {
-          window.open(payload.url, '_blank')
+          const url = new URL(payload.url)
+
+          if ('https:' === url.protocol)
+            window.open(payload.url, '_blank')
         }
         break
       default:
