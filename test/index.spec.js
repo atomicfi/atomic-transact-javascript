@@ -1,3 +1,5 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest'
+
 const { Atomic, Product } = require('../index')
 const { pick } = require('lodash')
 
@@ -6,27 +8,27 @@ describe('JavaScript SDK', () => {
   let iframeElement
 
   beforeEach(() => {
-    navigator = {
+    vi.stubGlobal('navigator', {
       platform: 'ios',
       vendor: 'mac'
-    }
+    })
 
-    mocks.documentAppendChild = jest.fn()
-    mocks.elementSetAttribute = jest.fn()
+    mocks.documentAppendChild = vi.fn()
+    mocks.elementSetAttribute = vi.fn()
     iframeElement = {
       setAttribute: mocks.elementSetAttribute,
       style: {}
     }
-    mocks.documentCreateElement = jest.fn().mockReturnValue(iframeElement)
-    mocks.windowAddEventListener = jest.fn()
+    mocks.documentCreateElement = vi.fn().mockReturnValue(iframeElement)
+    mocks.windowAddEventListener = vi.fn()
 
-    document = {
+    vi.stubGlobal('document', {
       body: { style: {}, appendChild: mocks.documentAppendChild },
       createElement: mocks.documentCreateElement
-    }
-    window = {
+    })
+    vi.stubGlobal('window', {
       addEventListener: mocks.windowAddEventListener
-    }
+    })
   })
 
   it('should initialize the sdk', () => {

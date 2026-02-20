@@ -8,7 +8,7 @@ This is the Atomic Transact JavaScript SDK, a browser-based SDK that enables int
 
 ## Development Commands
 
-- **Test**: `npm test` or `jest` - Runs Jest test suite
+- **Test**: `npm test` - Runs Vitest test suite
 - **Build TypeScript definitions**: `npx tsc` - Generates TypeScript declaration files from JavaScript source
 - **Publish**: `npm run publish-it` - Compiles TypeScript definitions and publishes to npm
 
@@ -17,7 +17,7 @@ This is the Atomic Transact JavaScript SDK, a browser-based SDK that enables int
 ### Core Structure
 - **index.js**: Main SDK implementation - single file containing the complete SDK
 - **index.d.ts**: TypeScript definitions (auto-generated from index.js via JSDoc comments)
-- **test/index.spec.js**: Jest test suite with snapshots
+- **test/index.spec.js**: Vitest test suite with snapshots
 
 ### SDK Architecture
 The SDK follows a simple pattern:
@@ -40,7 +40,7 @@ The SDK follows a simple pattern:
 
 - Uses Prettier with specific config: no semicolons, single quotes, 2-space tabs, no trailing commas
 - TypeScript definitions generated from JSDoc comments in JavaScript source
-- Jest for testing with snapshot testing for DOM elements
+- Vitest for testing with snapshot testing for DOM elements
 
 ## SDK Version Management
 

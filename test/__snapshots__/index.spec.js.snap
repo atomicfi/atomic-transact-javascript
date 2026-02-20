@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`JavaScript SDK should initialize the sdk 1`] = `
+exports[`JavaScript SDK > should initialize the sdk 1`] = `
 [
   [
     "allow",
@@ -17,7 +17,7 @@ exports[`JavaScript SDK should initialize the sdk 1`] = `
 ]
 `;
 
-exports[`JavaScript SDK should initialize the sdk 2`] = `
+exports[`JavaScript SDK > should initialize the sdk 2`] = `
 {
   "id": "atomic-transact-iframe",
   "src": "https://transact.atomicfi.com/initialize/eyJpblNkayI6dHJ1ZSwicGxhdGZvcm0iOnsibmFtZSI6ImJyb3dzZXIiLCJzZGtWZXJzaW9uIjoiX19WRVJTSU9OX18iLCJzeXN0ZW1WZXJzaW9uIjoiaW9zLW1hYyJ9LCJwdWJsaWNUb2tlbiI6IjZlOTM1NDllLTM1NzEtNGY1Ny1iMGY3LTc3YjdjYjBiNWU0OCIsInRhc2tzIjpbeyJwcm9kdWN0IjoiZGVwb3NpdCJ9XX0=",
