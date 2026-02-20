@@ -8,6 +8,10 @@ const packageJsonPath = path.join(__dirname, '..', 'package.json')
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'))
 const version = packageJson.version
 
+if (version === '0.0.0-development') {
+  throw new Error('Cannot publish with placeholder version. Ensure npm version is set correctly.')
+}
+
 // Read index.js
 const indexPath = path.join(__dirname, '..', 'index.js')
 const indexContent = fs.readFileSync(indexPath, 'utf8')
