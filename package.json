@@ -4,7 +4,7 @@
   "description": "Atomic Transact Javascript SDK.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "vitest run",
     "prepublishOnly": "node scripts/update-version.js && npx tsc"
   },
   "keywords": [
@@ -16,10 +16,10 @@
   "author": "sean@atomicfi.com",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^29.7.0",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "prettier": "^2.4.1",
-    "typescript": "^4.6.4"
+    "typescript": "^4.6.4",
+    "vitest": "^4.0.18"
   },
   "repository": {
     "type": "git",
