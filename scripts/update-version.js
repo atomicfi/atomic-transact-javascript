@@ -8,7 +8,7 @@ const packageJsonPath = path.join(__dirname, '..', 'package.json')
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'))
 const version = packageJson.version
 
-if (version === '0.0.0-development') {
+if (!version || version === '0.0.0-development') {
   throw new Error('Cannot publish with placeholder version. Ensure npm version is set correctly.')
 }
 
