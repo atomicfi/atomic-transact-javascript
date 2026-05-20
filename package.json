@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest run",
+    "format:check": "prettier --check index.js",
+    "format": "prettier --write index.js",
     "prepublishOnly": "node scripts/update-version.js && npx tsc"
   },
   "keywords": [

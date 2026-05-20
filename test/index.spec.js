@@ -13,6 +13,13 @@ describe('JavaScript SDK', () => {
       vendor: 'mac'
     })
 
+    vi.stubGlobal('crypto', {
+      getRandomValues: (buf) => {
+        for (let i = 0; i < buf.length; i++) buf[i] = i
+        return buf
+      }
+    })
+
     mocks.documentAppendChild = vi.fn()
     mocks.elementSetAttribute = vi.fn()
     iframeElement = {
