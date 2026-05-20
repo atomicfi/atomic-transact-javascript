@@ -36,6 +36,8 @@ let atomicSDK = {
     onOpenUrl = onOpenUrl || undefined
 
     const origin = environmentOverride || 'https://transact.atomicfi.com'
+    const { publicToken, ...transactConfig } = config
+    const handshakeId = _generateHandshakeId()
 
     if (!container) {
       document.body.style.overflow = 'hidden'
@@ -57,9 +59,10 @@ let atomicSDK = {
             navigator.vendor ?? 'unknown'
           }`
         },
-        ...config
+        ...transactConfig,
+        ...(publicToken ? { deferPublicToken: true } : {})
       })
-    )}`
+    )}#hId=${handshakeId}`
 
     const baseStyles = [
       { width: '100%' },
@@ -90,20 +93,21 @@ let atomicSDK = {
       .join('')
       .trim()
 
+    let mountTarget
     if (container) {
-      const containerElement = document.querySelector(container)
-
-      if (containerElement) {
-        containerElement.appendChild(iframeElement)
-      } else {
+      mountTarget = document.querySelector(container)
+      if (!mountTarget) {
         throw new Error(`No container found for "${container}"`)
       }
     } else {
-      document.body.appendChild(iframeElement)
+      mountTarget = document.body
     }
 
     atomicIframeEventListener = _handleIFrameEvent({
       origin,
+      iframeElement,
+      publicToken,
+      handshakeId,
       onInteraction,
       onDataRequest,
       onFinish,
@@ -111,6 +115,7 @@ let atomicSDK = {
       onOpenUrl
     })
     window.addEventListener('message', atomicIframeEventListener)
+    mountTarget.appendChild(iframeElement)
 
     return {
       close: () => _removeTransact()
@@ -120,6 +125,9 @@ let atomicSDK = {
 
 function _handleIFrameEvent({
   origin,
+  iframeElement,
+  publicToken,
+  handshakeId,
   onInteraction,
   onFinish,
   onClose,
@@ -128,6 +136,7 @@ function _handleIFrameEvent({
 }) {
   return (event) => {
     if (origin !== event.origin) return
+    if (!event.source || event.source !== iframeElement.contentWindow) return
 
     const { payload, event: eventName } = event.data
     switch (eventName) {
@@ -147,13 +156,22 @@ function _handleIFrameEvent({
         break
       case 'atomic-transact-open-url':
         if (onOpenUrl && typeof onOpenUrl === 'function') {
-          onOpenUrl({url: payload.url})
+          onOpenUrl({ url: payload.url })
         } else {
           const url = new URL(payload.url)
 
-          if ('https:' === url.protocol)
-            window.open(payload.url, '_blank')
+          if ('https:' === url.protocol) window.open(payload.url, '_blank')
         }
+        break
+      case 'atomic-transact-request-public-token':
+        iframeElement.contentWindow?.postMessage(
+          {
+            event: 'sdk-atomic-transact-public-token',
+            payload: { publicToken, handshakeId }
+          },
+          origin
+        )
+        publicToken = undefined
         break
       default:
         console.log('Unhandled postMessage Event', eventName)
@@ -161,10 +179,19 @@ function _handleIFrameEvent({
   }
 }
 
+function _generateHandshakeId() {
+  const buf = new Uint8Array(8)
+  crypto.getRandomValues(buf)
+  return Array.from(buf)
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('')
+}
+
 function _removeTransact() {
   const iframeElement = document.querySelector('#atomic-transact-iframe')
 
   window.removeEventListener('message', atomicIframeEventListener)
+  atomicIframeEventListener = undefined
   if (iframeElement?.parentNode !== document.body) return
   document.body.style.removeProperty('overflow')
   document.body.removeChild(iframeElement)
