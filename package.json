@@ -7,7 +7,20 @@
     "test": "vitest run",
     "format:check": "prettier --check index.js",
     "format": "prettier --write index.js",
+    "audit:fix": "npm audit fix --min-release-age=0",
     "prepublishOnly": "node scripts/update-version.js && npx tsc"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=24.16.0",
+      "onFail": "error"
+    },
+    "packageManager": {
+      "name": "npm",
+      "version": ">=11.13.0",
+      "onFail": "error"
+    }
   },
   "keywords": [
     "Atomic",
