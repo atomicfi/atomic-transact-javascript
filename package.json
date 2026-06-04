@@ -29,7 +29,7 @@
     "SDK"
   ],
   "author": "sean@atomicfi.com",
-  "license": "ISC",
+  "license": "SEE LICENSE IN LICENSE",
   "devDependencies": {
     "lodash": "^4.17.23",
     "prettier": "^2.4.1",
