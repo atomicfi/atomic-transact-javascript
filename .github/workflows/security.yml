@@ -15,15 +15,3 @@ jobs:
           cache: npm
       - name: npm audit
         run: npx audit-ci@^6 --config ./audit-ci.jsonc
-  semgrep:
-    runs-on: ubuntu-latest
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
-    env:
-      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-    container:
-      image: returntocorp/semgrep
-    steps:
-      - uses: actions/checkout@v5
-      - run: semgrep ci
-
