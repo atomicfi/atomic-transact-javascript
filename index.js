@@ -44,7 +44,10 @@ let atomicSDK = {
     }
 
     let iframeElement = document.createElement('iframe')
-    iframeElement.setAttribute('allow', 'web-share; clipboard-write;')
+    iframeElement.setAttribute(
+      'allow',
+      'web-share; clipboard-write; clipboard-read;'
+    )
     const productType = config.operation || config.product || 'Atomic'
     iframeElement.setAttribute('title', `${productType} Interface`)
     iframeElement.setAttribute('aria-label', `${productType} Interface`)
