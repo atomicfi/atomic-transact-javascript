@@ -9,14 +9,18 @@ This is the Atomic Transact JavaScript SDK, a browser-based SDK that enables int
 ## Development Commands
 
 - **Test**: `npm test` - Runs Vitest test suite
-- **Build TypeScript definitions**: `npx tsc` - Generates TypeScript declaration files from JavaScript source
-- **Publish**: `npm run publish-it` - Compiles TypeScript definitions and publishes to npm
+- **Format**: `npm run format` - Rewrites `index.js` with Prettier (`npm run format:ci` checks without writing)
+- **Build TypeScript definitions**: `npm run typecheck` - Runs `tsc` to generate declarations from JSDoc comments (`npm run typecheck:ci` also fails if the committed `index.d.ts` is out of date)
+- **Publish**: Publishing is driven by GitHub Releases, not a local command. See [docs/RELEASE.md](docs/RELEASE.md).
+
+Node must satisfy the version in `.nvmrc`; `devEngines` in `package.json` makes npm fail otherwise.
 
 ## Architecture
 
 ### Core Structure
 - **index.js**: Main SDK implementation - single file containing the complete SDK
-- **index.d.ts**: TypeScript definitions (auto-generated from index.js via JSDoc comments)
+- **index.d.ts**: TypeScript definitions (auto-generated from index.js via JSDoc comments). Committed to the repository so public API changes are reviewable, and verified by `typecheck:ci`. Regenerate with `npm run typecheck` and commit the result whenever the API surface changes.
+- **index.d.ts.map**: Not committed. It tracks line offsets in `index.js`, so it is generated at publish time by `prepublishOnly` and shipped via the `files` array.
 - **test/index.spec.js**: Vitest test suite with snapshots
 
 ### SDK Architecture
@@ -28,7 +32,7 @@ The SDK follows a simple pattern:
 ### Key Components
 - **iframe Management**: Creates and styles iframe elements, supports both modal and container modes
 - **PostMessage Communication**: Bidirectional communication with Transact iframe using postMessage API
-- **Event Callbacks**: onInteraction, onDataRequest, onFinish, onClose callbacks for different SDK events
+- **Event Callbacks**: onInteraction, onDataRequest, onFinish, onClose, onOpenUrl callbacks for different SDK events
 - **Product Constants**: Predefined product types (DEPOSIT, VERIFY, IDENTIFY, WITHHOLD)
 
 ### Configuration
@@ -44,4 +48,4 @@ The SDK follows a simple pattern:
 
 ## SDK Version Management
 
-The SDK version is hardcoded in index.js:52 and should be kept in sync with package.json version. This version is sent to Transact servers as part of platform metadata.
+The SDK version in `index.js` is a `__VERSION__` placeholder that `scripts/update-version.js` replaces with the release version at publish time. This version is sent to Transact servers as part of platform metadata.

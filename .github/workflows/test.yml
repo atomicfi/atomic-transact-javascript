@@ -22,10 +22,10 @@ jobs:
         run: npm install --package-lock-only && git diff --exit-code package-lock.json
 
       - name: Check formatting
-        run: npm run format:check
+        run: npm run format:ci
 
       - name: Run tests
         run: npm run test
 
       - name: Type check
-        run: npx tsc
+        run: npm run typecheck:ci

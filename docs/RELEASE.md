@@ -16,9 +16,9 @@ When a release is published, the [publish workflow](../.github/workflows/publish
 
 1. **Set version** - `npm version` updates `package.json` to match the release tag.
 2. **Install dependencies** - `npm ci` installs dependencies from the lockfile.
-3. **Publish to npm** - `npm publish` publishes the package. Before publishing, the `prepublishOnly` script automatically:
+3. **Publish to npm** - `npm publish` publishes the package. Before packing, the `prepublishOnly` script:
    - Runs `scripts/update-version.js` to replace the `__VERSION__` placeholder in `index.js` with the release version.
-   - Runs `tsc` to generate TypeScript declaration files.
+   - Runs `tsc` to emit `index.d.ts.map`, which lets editors navigate from the published declarations into `index.js`.
 
 ## npm Trusted Publishing
 

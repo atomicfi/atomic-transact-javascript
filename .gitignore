@@ -1,2 +1,5 @@
 /node_modules/
 npm-debug.log
+
+# Generated at publish time by prepublishOnly, shipped via package.json files
+index.d.ts.map

@@ -3,22 +3,31 @@
   "name": "@atomicfi/transact-javascript",
   "description": "Atomic Transact Javascript SDK.",
   "main": "index.js",
+  "types": "index.d.ts",
+  "type": "commonjs",
   "scripts": {
     "test": "vitest run",
-    "format:check": "prettier --check index.js",
     "format": "prettier --write index.js",
+    "format:ci": "prettier --check index.js",
+    "typecheck": "tsc",
+    "typecheck:ci": "npm run typecheck && git diff --exit-code HEAD -- index.d.ts",
     "audit:fix": "npm audit fix --min-release-age=0",
-    "prepublishOnly": "node scripts/update-version.js && npx tsc"
+    "prepublishOnly": "node scripts/update-version.js && npm run typecheck"
   },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "index.d.ts.map"
+  ],
   "devEngines": {
     "runtime": {
       "name": "node",
-      "version": ">=24.16.0",
+      "version": ">=24.19.0",
       "onFail": "error"
     },
     "packageManager": {
       "name": "npm",
-      "version": ">=11.13.0",
+      "version": ">=11.17.0",
       "onFail": "error"
     }
   },
@@ -35,6 +44,9 @@
     "prettier": "^2.4.1",
     "typescript": "^4.6.4",
     "vitest": "^4.1.0"
+  },
+  "allowScripts": {
+    "fsevents": false
   },
   "repository": {
     "type": "git",
